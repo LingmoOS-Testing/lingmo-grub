@@ -1,3 +1,10 @@
+grub2 (2.06-3~deb11u5) bullseye-security; urgency=high
+
+  [ Steve McIntyre ]
+  * Include fonts in the memdisk build for EFI images.
+
+ -- Steve McIntyre <93sam@debian.org>  Sun, 04 Nov 2022 23:58:01 +0000
+
 grub2 (2.06-3~deb11u4) bullseye-security; urgency=high
 
   [ Steve McIntyre ]
