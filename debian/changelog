@@ -6,8 +6,10 @@ grub2 (2.06-3~deb11u5) bullseye-security; urgency=high
     - Due to a mistake in the buster upload (2.06-3~deb10u2) that left
       the CVE-2022-2601 bugs in place, we need to bump SBAT for all of
       the Debian GRUB binaries. :-(
+  * Fix bug in core file code so errors are handled better. This makes
+    the above font-handling patch work!
 
- -- Steve McIntyre <93sam@debian.org>  Sun, 04 Nov 2022 23:58:01 +0000
+ -- Steve McIntyre <93sam@debian.org>  Mon, 05 Nov 2022 23:26:26 +0000
 
 grub2 (2.06-3~deb11u4) bullseye-security; urgency=high
 
