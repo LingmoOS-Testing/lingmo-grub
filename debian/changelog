@@ -1,4 +1,4 @@
-grub2 (2.06-3~deb10u3) UNRELEASED; urgency=medium
+grub2 (2.06-3~deb10u3) buster-security; urgency=high
 
   [ Steve McIntyre ]
   * Actually ensure the patches are applied for CVE-2022-2601 and
