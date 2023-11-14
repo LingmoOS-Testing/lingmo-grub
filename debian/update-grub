@@ -1,3 +1,11 @@
 #!/bin/sh
 set -e
+
+if [ -n "$DPKG_MAINTSCRIPT_PACKAGE" ] && [ $# = 0 ]; then
+        if dpkg-trigger --no-await update-grub; then
+                echo "update-grub: deferring update (trigger activated)"
+                exit 0
+        fi
+fi
+
 exec grub-mkconfig -o /boot/grub/grub.cfg "$@"

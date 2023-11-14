@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+  triggered)
+    # force it to actually happen
+    DPKG_MAINTSCRIPT_PACKAGE='' update-grub
+    ;;
+esac
+
+#DEBHELPER#

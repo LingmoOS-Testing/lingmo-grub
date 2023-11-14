@@ -18,7 +18,7 @@ case $0:$mode in
     # kernel packages.
     */postinst.d/*:|*/postinst.d/*:configure|*/postrm.d/*:|*/postrm.d/*:remove)
 	if [ -e /boot/grub/grub.cfg ]; then
-		exec update-grub
+		dpkg-trigger --no-await update-grub
 	fi
 	;;
 esac
