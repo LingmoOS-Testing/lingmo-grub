@@ -70,7 +70,6 @@ fdt-add-debug-output-to-devicetree-command.patch
 fdt-device-tree-fixup-protocol.patch
 extra_deps_lst.patch
 revert-term-ns8250-spcr.patch
-efidisk-breakup-large-reads.patch
 install-signed.patch
 grub-install-extra-removable.patch
 grub-install-removable-shim.patch
