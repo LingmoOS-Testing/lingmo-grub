@@ -131,8 +131,16 @@ debian/stamps/build-grub-efi-ia32 install/grub-efi-ia32: export SB_PLATFORM := i
 debian/stamps/build-grub-efi-ia32 install/grub-efi-ia32: export SB_EFI_NAME := ia32
 debian/stamps/build-grub-efi-amd64 install/grub-efi-amd64: export SB_PLATFORM := x86_64-efi
 debian/stamps/build-grub-efi-amd64 install/grub-efi-amd64: export SB_EFI_NAME := x64
+debian/stamps/build-grub-efi-arm install/grub-efi-arm: export SB_PLATFORM := arm-efi
+debian/stamps/build-grub-efi-arm install/grub-efi-arm: export SB_EFI_NAME := arm
 debian/stamps/build-grub-efi-arm64 install/grub-efi-arm64: export SB_PLATFORM := arm64-efi
 debian/stamps/build-grub-efi-arm64 install/grub-efi-arm64: export SB_EFI_NAME := aa64
+debian/stamps/build-grub-efi-ia64 install/grub-efi-ia64: export SB_PLATFORM := ia64-efi
+debian/stamps/build-grub-efi-ia64 install/grub-efi-ia64: export SB_EFI_NAME := ia64
+debian/stamps/build-grub-efi-loong64 install/grub-efi-loong64: export SB_PLATFORM := loongarch64-efi
+debian/stamps/build-grub-efi-loong64 install/grub-efi-loong64: export SB_EFI_NAME := loongarch64
+debian/stamps/build-grub-efi-riscv64 install/grub-efi-riscv64: export SB_PLATFORM := riscv64-efi
+debian/stamps/build-grub-efi-riscv64 install/grub-efi-riscv64: export SB_EFI_NAME := riscv64
 SB_PACKAGE :=
 ifeq (yes,$(shell dpkg-vendor --derives-from Ubuntu && echo yes))
 ifeq ($(DEB_HOST_ARCH),amd64)
@@ -230,11 +238,11 @@ debian/stamps/configure-grub-firmware-qemu:
 	dh_auto_configure -- $(confflags) --with-platform=qemu
 	touch $@
 
-debian/stamps/build-grub-none debian/stamps/build-grub-efi-ia64 debian/stamps/build-grub-efi-arm debian/stamps/build-grub-efi-riscv64 debian/stamps/build-grub-efi-loong64 debian/stamps/build-grub-coreboot debian/stamps/build-grub-emu debian/stamps/build-grub-uboot debian/stamps/build-grub-xen-i386 debian/stamps/build-grub-xen-amd64 debian/stamps/build-grub-xen-pvh-i386 debian/stamps/build-grub-yeeloong: debian/stamps/build-%: debian/stamps/configure-%
+debian/stamps/build-grub-none debian/stamps/build-grub-coreboot debian/stamps/build-grub-emu debian/stamps/build-grub-uboot debian/stamps/build-grub-xen-i386 debian/stamps/build-grub-xen-amd64 debian/stamps/build-grub-xen-pvh-i386 debian/stamps/build-grub-yeeloong: debian/stamps/build-%: debian/stamps/configure-%
 	dh_auto_build
 	touch $@
 
-debian/stamps/build-grub-efi-ia32 debian/stamps/build-grub-efi-amd64 debian/stamps/build-grub-efi-arm64: debian/stamps/build-%: debian/stamps/configure-% debian/stamps/build-grub-$(COMMON_PLATFORM)
+debian/stamps/build-grub-efi-ia32 debian/stamps/build-grub-efi-ia64 debian/stamps/build-grub-efi-arm debian/stamps/build-grub-efi-loong64 debian/stamps/build-grub-efi-amd64 debian/stamps/build-grub-efi-arm64 debian/stamps/build-grub-efi-riscv64: debian/stamps/build-%: debian/stamps/configure-% debian/stamps/build-grub-$(COMMON_PLATFORM)
 	dh_auto_build
 	grub_dir=`mktemp -d` ; \
 	sed -e "s/@DEB_VERSION@/$(deb_version)/g" \
