@@ -180,6 +180,7 @@ debian/stamps/build-%: export DH_OPTIONS = -p$(package) -Bobj/$(package)
 
 install/%: package = $(subst install/,,$@)
 install/%: package_bin = $(package)-bin
+install/%: package_unsigned = $(package)-unsigned
 install/%: package_dbg = $(package)-dbg
 install/grub-emu: package_bin = grub-emu
 install/grub-emu: package_dbg = grub-emu-dbg
@@ -390,8 +391,8 @@ install/grub-pc install/grub-efi-ia32 install/grub-efi-amd64 install/grub-efi-ia
 
 	set -e ; \
 	if [ -d "obj/monolithic/$(package)" ] ; then \
-		install -m 0755 -d debian/$(package_bin)/usr/lib/grub/$(SB_PLATFORM)/monolithic ; \
-		install -m 0644 -t debian/$(package_bin)/usr/lib/grub/$(SB_PLATFORM)/monolithic obj/monolithic/$(package)/*.efi ; \
+		install -m 0755 -d debian/$(package_unsigned)/usr/lib/grub/$(SB_PLATFORM)/monolithic ; \
+		install -m 0644 -t debian/$(package_unsigned)/usr/lib/grub/$(SB_PLATFORM)/monolithic obj/monolithic/$(package)/*.efi ; \
 		debian/signing-template.generate "$(package)" ; \
 	fi
 
@@ -461,9 +462,10 @@ install/grub-pc install/grub-efi-ia32 install/grub-efi-amd64 install/grub-efi-ia
 	fi
 	case $@ in \
 		install/grub-efi*) \
+			mkdir -p debian/$(package_unsigned)/usr/share/lintian/overrides; \
 			(echo "# These aren't Windows executables, and these features wouldn't be very useful." \
-			 echo "$(package_bin): portable-executable-missing-security-features [*.efi ASLR DEP/NX") \
-				>> debian/$(package_bin)/usr/share/lintian/overrides/$(package_bin) ;; \
+			 echo "$(package_unsigned): portable-executable-missing-security-features [*.efi ASLR DEP/NX") \
+				>> debian/$(package_unsigned)/usr/share/lintian/overrides/$(package_unsigned) ;; \
 	esac
 	if [ "$@" = "install/grub-emu" ]; then \
 		(echo "# This seems to be due to a readelf bug: https://bugs.debian.org/929585"; \
